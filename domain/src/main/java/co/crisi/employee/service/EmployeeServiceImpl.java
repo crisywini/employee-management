@@ -5,14 +5,15 @@ import co.crisi.employee.port.api.DateServicePort;
 import co.crisi.employee.port.api.EmployeeServicePort;
 import co.crisi.employee.port.spi.EmployeePersistencePort;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeServicePort {
 
-    private final EmployeePersistencePort employeePersistencePort;
+    private EmployeePersistencePort employeePersistencePort;
 
-    private final DateServicePort dateServicePort;
+    private DateServicePort dateServicePort;
 
     @Override
     public EmployeeInfo getById(Long id) {
