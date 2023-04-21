@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +34,14 @@ public class EmployeeJpaAdapter implements EmployeePersistencePort {
     }
 
     @Override
-    public EmployeeInfo update(EmployeeInfo newEmployee) {
-        return save(newEmployee);
+    @Transactional(propagation = Propagation.NESTED, isolation = Isolation.REPEATABLE_READ)
+    public EmployeeInfo update(Long employeeId, EmployeeInfo newEmployee) {
+        return findById(employeeId)
+                .map(employee -> {
+                    newEmployee.setId(employeeId);
+                    return save(newEmployee);
+                })
+                .orElseThrow(() -> new NullPointerException("Employee not found"));
     }
 
     @Override

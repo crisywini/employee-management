@@ -2,7 +2,6 @@ package co.crisi.employee.port.api;
 
 import co.crisi.employee.data.EmployeeInfo;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 public interface EmployeeServicePort {
 
@@ -16,7 +15,7 @@ public interface EmployeeServicePort {
 
     int getSeniority(Long employeeId);
 
-    EmployeeInfo update(EmployeeInfo newEmployeeInfo);
+    EmployeeInfo update(Long employeeId, EmployeeInfo newEmployeeInfo);
 
     Double getBenefits(Long employeeId);
 

@@ -7,6 +7,7 @@ import co.crisi.employee.port.spi.EmployeePersistencePort;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeServicePort {
@@ -48,8 +49,8 @@ public class EmployeeServiceImpl implements EmployeeServicePort {
     }
 
     @Override
-    public EmployeeInfo update(EmployeeInfo newEmployeeInfo) {
-        return employeePersistencePort.update(newEmployeeInfo);
+    public EmployeeInfo update(Long employeeId, EmployeeInfo newEmployeeInfo) {
+        return employeePersistencePort.update(employeeId, newEmployeeInfo);
     }
 
     @Override
