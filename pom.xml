@@ -23,6 +23,7 @@
   <description>employee</description>
   <properties>
     <java.version>17</java.version>
+    <org.projectlombok.lombok-mapstruct-binding.version>0.2.0</org.projectlombok.lombok-mapstruct-binding.version>
     <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
     <org.lombok.version>1.18.24</org.lombok.version>
   </properties>
