@@ -3,6 +3,7 @@ package co.crisi.employee.mapper;
 import co.crisi.employee.data.EmployeeInfo;
 import co.crisi.employee.model.Employee;
 import co.crisi.employee.objectmother.EmployeeInfoMother;
+import co.crisi.employee.objectmother.EmployeeMother;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -16,7 +17,7 @@ class EmployeeMapperTest {
 
 
     @Test
-    void infoToEntityTest(){
+    void infoToEntityTest() {
         val employeeInfo = EmployeeInfoMother.random();
         val birthDateLD = employeeMapper.mapToLocalDate(employeeInfo.getBirthDate());
         val admissionDateLD = employeeMapper.mapToLocalDate(employeeInfo.getDateOfAdmission());
@@ -36,6 +37,29 @@ class EmployeeMapperTest {
                         employeeInfo.getBasicSalary(),
                         birthDateLD,
                         admissionDateLD);
+    }
+
+    @Test
+    void entityToInfoTest() {
+        val employee = EmployeeMother.random();
+        val birthDate = employeeMapper.mapToDate(employee.getBirthDate());
+        val admissionDate = employeeMapper.mapToDate(employee.getAdmissionDate());
+
+        val employeeInfo = employeeMapper.mapToInfo(employee);
+
+        assertThat(employeeInfo)
+                .extracting(EmployeeInfo::getId,
+                        EmployeeInfo::getName,
+                        EmployeeInfo::getLastName,
+                        EmployeeInfo::getBasicSalary,
+                        EmployeeInfo::getBirthDate,
+                        EmployeeInfo::getDateOfAdmission)
+                .contains(employee.getId(),
+                        employee.getName(),
+                        employee.getLastName(),
+                        employee.getBasicSalary(),
+                        birthDate,
+                        admissionDate);
     }
 
 }
