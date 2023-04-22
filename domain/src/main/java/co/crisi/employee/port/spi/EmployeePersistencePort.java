@@ -10,10 +10,10 @@ public interface EmployeePersistencePort {
 
     void deleteById(Long id);
 
-    EmployeeInfo update(EmployeeInfo newEmployee);
+    EmployeeInfo update(Long employeeId, EmployeeInfo newEmployee);
 
     List<EmployeeInfo> findAll();
 
-    Optional<EmployeeInfo> findById(Long id);
+    Optional<EmployeeInfo> findByPersonalId(Long id);
 
 }

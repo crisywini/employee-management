@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +34,18 @@ public class EmployeeJpaAdapter implements EmployeePersistencePort {
     }
 
     @Override
-    public EmployeeInfo update(EmployeeInfo newEmployee) {
-        return save(newEmployee);
+    @Transactional(propagation = Propagation.NESTED, isolation = Isolation.REPEATABLE_READ)
+    public EmployeeInfo update(Long employeeId, EmployeeInfo newEmployee) {
+        return employeeRepository.findByPersonalId(employeeId)
+                .map(employee -> {
+
+                    var employeeUpdated = EMPLOYEE_MAPPER.mapToEntity(newEmployee);
+                    employeeUpdated.setId(employee.getId());
+                    employeeUpdated.setPersonalId(employeeId);
+
+                    return EMPLOYEE_MAPPER.mapToInfo(employeeRepository.save(employeeUpdated));
+                })
+                .orElseThrow(() -> new NullPointerException("Employee not found"));
     }
 
     @Override
@@ -41,8 +54,8 @@ public class EmployeeJpaAdapter implements EmployeePersistencePort {
     }
 
     @Override
-    public Optional<EmployeeInfo> findById(Long id) {
-        return Optional.ofNullable(EMPLOYEE_MAPPER.mapToInfo(employeeRepository.findById(id)
+    public Optional<EmployeeInfo> findByPersonalId(Long id) {
+        return Optional.ofNullable(EMPLOYEE_MAPPER.mapToInfo(employeeRepository.findByPersonalId(id)
                 .orElseThrow(() -> new NullPointerException("Employee not found"))));
     }
 

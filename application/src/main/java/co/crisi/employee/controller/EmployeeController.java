@@ -26,11 +26,13 @@ public class EmployeeController {
         return employeeServicePort.add(employeeInfo).getId();
     }
 
-    @PutMapping
+    @PutMapping("/{employeeId}")
     public EmployeeInfo update(
+            @PathVariable(name = "employeeId")
+                    Long employeeId,
             @RequestBody
                     EmployeeInfo employeeInfo) {
-        return employeeServicePort.update(employeeInfo);
+        return employeeServicePort.update(employeeId, employeeInfo);
     }
 
     @GetMapping("/{id}")

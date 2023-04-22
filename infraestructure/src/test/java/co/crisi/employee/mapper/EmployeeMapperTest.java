@@ -26,12 +26,14 @@ class EmployeeMapperTest {
 
         assertThat(employeeEntity)
                 .extracting(Employee::getId,
+                        Employee::getPersonalId,
                         Employee::getName,
                         Employee::getLastName,
                         Employee::getBasicSalary,
                         Employee::getBirthDate,
                         Employee::getAdmissionDate)
                 .contains(employeeInfo.getId(),
+                        null,
                         employeeInfo.getName(),
                         employeeInfo.getLastName(),
                         employeeInfo.getBasicSalary(),
@@ -54,7 +56,7 @@ class EmployeeMapperTest {
                         EmployeeInfo::getBasicSalary,
                         EmployeeInfo::getBirthDate,
                         EmployeeInfo::getDateOfAdmission)
-                .contains(employee.getId(),
+                .contains(employee.getPersonalId(),
                         employee.getName(),
                         employee.getLastName(),
                         employee.getBasicSalary(),
