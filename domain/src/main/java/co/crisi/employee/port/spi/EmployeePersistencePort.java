@@ -14,6 +14,6 @@ public interface EmployeePersistencePort {
 
     List<EmployeeInfo> findAll();
 
-    Optional<EmployeeInfo> findById(Long id);
+    Optional<EmployeeInfo> findByPersonalId(Long id);
 
 }

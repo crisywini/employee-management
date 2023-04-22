@@ -6,8 +6,6 @@ import co.crisi.employee.port.api.EmployeeServicePort;
 import co.crisi.employee.port.spi.EmployeePersistencePort;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeServicePort {
@@ -18,7 +16,7 @@ public class EmployeeServiceImpl implements EmployeeServicePort {
 
     @Override
     public EmployeeInfo getById(Long id) {
-        return employeePersistencePort.findById(id)
+        return employeePersistencePort.findByPersonalId(id)
                 .orElseThrow(() -> new NullPointerException("Employee not found!"));
     }
 

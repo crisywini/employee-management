@@ -13,10 +13,13 @@ public interface EmployeeMapper {
 
     @Mapping(target = "name", source = "name")
     @Mapping(target = "dateOfAdmission", source = "admissionDate")
+    @Mapping(target = "id", source = "personalId")
     EmployeeInfo mapToInfo(Employee employee);
 
 
     @Mapping(target = "admissionDate", source = "dateOfAdmission")
+    @Mapping(target = "personalId", source = "id")
+    @Mapping(target = "id", ignore = true)
     Employee mapToEntity(EmployeeInfo employeeInfo);
 
     List<Employee> mapToEntity(List<EmployeeInfo> employeesInfo);

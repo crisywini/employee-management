@@ -36,10 +36,14 @@ public class EmployeeJpaAdapter implements EmployeePersistencePort {
     @Override
     @Transactional(propagation = Propagation.NESTED, isolation = Isolation.REPEATABLE_READ)
     public EmployeeInfo update(Long employeeId, EmployeeInfo newEmployee) {
-        return findById(employeeId)
+        return employeeRepository.findByPersonalId(employeeId)
                 .map(employee -> {
-                    newEmployee.setId(employeeId);
-                    return save(newEmployee);
+
+                    var employeeUpdated = EMPLOYEE_MAPPER.mapToEntity(newEmployee);
+                    employeeUpdated.setId(employee.getId());
+                    employeeUpdated.setPersonalId(employeeId);
+
+                    return EMPLOYEE_MAPPER.mapToInfo(employeeRepository.save(employeeUpdated));
                 })
                 .orElseThrow(() -> new NullPointerException("Employee not found"));
     }
@@ -50,8 +54,8 @@ public class EmployeeJpaAdapter implements EmployeePersistencePort {
     }
 
     @Override
-    public Optional<EmployeeInfo> findById(Long id) {
-        return Optional.ofNullable(EMPLOYEE_MAPPER.mapToInfo(employeeRepository.findById(id)
+    public Optional<EmployeeInfo> findByPersonalId(Long id) {
+        return Optional.ofNullable(EMPLOYEE_MAPPER.mapToInfo(employeeRepository.findByPersonalId(id)
                 .orElseThrow(() -> new NullPointerException("Employee not found"))));
     }
 
