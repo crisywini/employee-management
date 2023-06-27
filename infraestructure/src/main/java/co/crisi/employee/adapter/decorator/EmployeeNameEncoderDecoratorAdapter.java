@@ -18,8 +18,8 @@ public class EmployeeNameEncoderDecoratorAdapter extends EmployeeEncoderDecorato
 
     private String encodeNameUsingCaesarOne(String name) {
         StringBuilder encodedName = new StringBuilder();
-        for(int i=0; i<name.length(); i++){
-            encodedName.append(name.charAt(i) + 1);
+        for (int i = 0; i < name.length(); i++) {
+            encodedName.append((char) (name.charAt(i) + 1));
         }
         return encodedName.toString();
     }

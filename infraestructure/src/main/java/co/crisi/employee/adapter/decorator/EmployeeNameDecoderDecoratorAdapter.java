@@ -20,7 +20,7 @@ public class EmployeeNameDecoderDecoratorAdapter extends EmployeeDecoderDecorato
     private String decodeNameUsingCaesarOne(String name) {
         var decoded = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
-            decoded.append(name.charAt(i) - 1);
+            decoded.append((char) (name.charAt(i) - 1));
         }
         return decoded.toString();
     }
