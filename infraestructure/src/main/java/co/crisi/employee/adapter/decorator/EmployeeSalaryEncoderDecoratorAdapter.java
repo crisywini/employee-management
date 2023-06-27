@@ -12,11 +12,11 @@ public class EmployeeSalaryEncoderDecoratorAdapter extends EmployeeEncoderDecora
     @Override
     public EmployeeInfo encode() {
         var employee = super.encode();
-        employee.setBasicSalary(encodeSalaryUsingDivide(employee.getBasicSalary()));
+        employee.setBasicSalary(encodeSalary(employee.getBasicSalary()));
         return employee;
     }
 
-    public Double encodeSalaryUsingDivide(Double salary) {
+    public Double encodeSalary(Double salary) {
         return salary / 2.0;
     }
 
