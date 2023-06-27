@@ -12,11 +12,11 @@ public class EmployeeNameEncoderDecoratorAdapter extends EmployeeEncoderDecorato
     @Override
     public EmployeeInfo encode() {
         var employee = this.encoder.encode();
-        employee.setName(encodeNameUsingCaesarOne(employee.getName()));
+        employee.setName(encodeName(employee.getName()));
         return employee;
     }
 
-    private String encodeNameUsingCaesarOne(String name) {
+    private String encodeName(String name) {
         StringBuilder encodedName = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
             encodedName.append((char) (name.charAt(i) + 1));

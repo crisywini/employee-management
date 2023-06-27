@@ -13,11 +13,11 @@ public class EmployeeNameDecoderDecoratorAdapter extends EmployeeDecoderDecorato
     @Override
     public EmployeeInfo decode() {
         var decoded = this.decoder.decode();
-        decoded.setName(decodeNameUsingCaesarOne(decoded.getName()));
+        decoded.setName(decodeName(decoded.getName()));
         return decoded;
     }
 
-    private String decodeNameUsingCaesarOne(String name) {
+    private String decodeName(String name) {
         var decoded = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
             decoded.append((char) (name.charAt(i) - 1));
